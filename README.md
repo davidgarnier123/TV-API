@@ -24,14 +24,11 @@
             {other program},
             {other program},
           ]
-       },
-       {
-        other channel
-       },
-       {
-        other channel
        }
-   ]
+   ],
+   [other channel],
+   [other channel],
+   [other channel],
 }
           
 ```
