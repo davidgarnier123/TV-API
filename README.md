@@ -1,5 +1,6 @@
 # TV-API
 API qui permet de récupérer les programmes TV des 2 jours précédents et des 4 jours à venir.
+Les données sont récupérées au format XML sur ce [site](https://xmltvfr.fr/xmltv/xmltv_tnt.xml) et sont transformées au format JSON faciles à manipuler pour un front-end.
 
 ## Version en ligne
 >[https://daga123-tv-api.onrender.com/getPrograms](https://daga123-tv-api.onrender.com/getPrograms)
