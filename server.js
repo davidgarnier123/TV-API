@@ -70,33 +70,57 @@ function formatPrograms(xmlData) {
     icon: chan.icon[0].$.src,
     programs: [],
   }));
+  
   const programs = programme.map(prog => {
-    const {
-      $: { channel, start, stop },
-      title: [{ _: name }],
-      icon,
-      rating: [{ value: [rating] }],
-      category: [{ _: cat }],
-      desc: [{ _: desc }],
-    } = prog;
-    return {
-      name,
-      start: moment(start.substring(0, formatDate.length), formatDate).unix(),
-      end: moment(stop.substring(0, formatDate.length), formatDate).unix(),
-      channel,
-      icon: icon ? icon[0].$.src : null,
-      rating,
-      cat,
-      desc,
+    const program = {
+      name: undefined,
+      start: undefined,
+      end: undefined,
+      channel: undefined,
+      icon: undefined,
+      rating: undefined,
+      cat: undefined,
+      desc: undefined,
     };
+    
+    if (prog.$) {
+      program.channel = prog.$.channel;
+      program.start = moment(prog.$.start.substring(0, formatDate.length), formatDate).unix();
+      program.end = moment(prog.$.stop.substring(0, formatDate.length), formatDate).unix();
+    }
+    
+    if (prog.title && prog.title[0] && prog.title[0]._) {
+      program.name = prog.title[0]._;
+    }
+    
+    if (prog.icon && prog.icon[0] && prog.icon[0].$ && prog.icon[0].$.src) {
+      program.icon = prog.icon[0].$.src;
+    }
+    
+    if (prog.rating && prog.rating[0] && prog.rating[0].value && prog.rating[0].value[0]) {
+      program.rating = prog.rating[0].value[0];
+    }
+    
+    if (prog.category && prog.category[0] && prog.category[0]._) {
+      program.cat = prog.category[0]._;
+    }
+    
+    if (prog.desc && prog.desc[0] && prog.desc[0]._) {
+      program.desc = prog.desc[0]._;
+    }
+    
+    return program;
   });
+  
   channels.forEach(channel => {
     programs
       .filter(prog => prog.channel === channel.id)
       .forEach(prog => channel.programs.push(prog));
   });
+  
   return channels;
 }
+
 
 async function get(url) {
   return new Promise((resolve, reject) => {
