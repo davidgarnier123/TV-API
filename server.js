@@ -49,6 +49,9 @@ app.get("/getPrograms", async (req, response) => {
   }
 });
 
+app.get("/stayUp", async (req, response) => {
+    response.send({ success: true });
+});
 async function parseXML(url) {
   const data = await get(url);
   return new Promise((resolve, reject) => {
