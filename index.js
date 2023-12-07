@@ -15,7 +15,6 @@ const https = require('https');
 // Define the JSON parser as a default way 
 // to consume and produce data through the 
 // exposed APIs
-app.use(bodyParser.json());
 
 
 app.all('*', function (req, res, next) {
@@ -28,6 +27,10 @@ app.all('*', function (req, res, next) {
     next();
   }
 });
+
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // Init the server
 app.listen(8000, () => {
